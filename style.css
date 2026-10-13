@@ -1,0 +1,463 @@
+/* ==========================================================
+   Side Quest Coffee Co. - shared stylesheet
+   Used by index.html and games.html
+   ========================================================== */
+
+/* ---------- 1. Colors and fonts (change them here once) ---------- */
+:root {
+  --pine: #1e3d36;        /* deep green: header text, dark sections */
+  --pine-dark: #16302a;   /* darker green: footer */
+  --lantern: #d9a441;     /* warm gold: buttons and accents */
+  --oat: #f3efe6;         /* page background */
+  --paper: #fbf9f4;       /* lighter panels */
+  --ink: #23221f;         /* main text */
+  --muted: #5d625c;       /* secondary text */
+  --line: #d8d2c3;        /* thin dividers */
+
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Figtree", "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --page-width: 1100px;
+}
+
+/* ---------- 2. Basic reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--oat);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: var(--pine);
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: clamp(2.3rem, 5vw, 3.8rem); font-weight: 700; }
+h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 600; }
+h3 { font-size: 1.3rem; font-weight: 600; }
+
+p { margin: 0 0 1em; }
+
+a { color: var(--pine); }
+
+/* Keyboard focus is always visible */
+a:focus-visible {
+  outline: 3px solid var(--lantern);
+  outline-offset: 3px;
+}
+
+/* ---------- 3. Reusable layout pieces ---------- */
+.wrap {
+  width: min(100% - 2.5rem, var(--page-width));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+.section-intro {
+  max-width: 38rem;
+  color: var(--muted);
+}
+
+/* "Skip to content" link for keyboard and screen reader users */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--pine);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* ---------- 4. Buttons ---------- */
+.button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid var(--lantern);
+  background: var(--lantern);
+  color: var(--pine-dark);
+  transition: background 0.2s, color 0.2s;
+}
+.button:hover {
+  background: #e6b758;
+}
+.button-outline {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+.button-outline:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* ---------- 5. Header and navigation ---------- */
+.site-header {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  padding-block: 0.8rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--pine);
+}
+
+.brand img {
+  height: 54px;   /* change this number to make the logo bigger or smaller */
+  width: auto;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  display: block;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--pine);
+}
+
+.site-nav a:hover {
+  background: var(--oat);
+}
+
+/* The page you are currently on */
+.site-nav a[aria-current="page"] {
+  background: var(--pine);
+  color: #fff;
+}
+
+/* ---------- 6. Home page: hero ---------- */
+.hero {
+  position: relative;
+  min-height: min(78vh, 680px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: #fff;
+  background: var(--pine-dark); /* shows while the photo loads */
+}
+
+/* The photo fills the whole hero area */
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A green shade over the photo keeps the text readable */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(22, 48, 42, 0.92) 0%, rgba(22, 48, 42, 0.7) 45%, rgba(22, 48, 42, 0.15) 100%);
+}
+
+.hero .wrap {
+  position: relative; /* keeps the text above the photo and shade */
+  z-index: 2;
+}
+
+.hero-content {
+  max-width: 36rem;
+  padding-block: 4rem;
+}
+
+.hero h1 {
+  color: #fff;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.8rem;
+}
+
+/* ---------- 7. Home page: what we are ---------- */
+.intro {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.intro h2 {
+  max-width: 30rem;
+  margin-bottom: 1.8rem;
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem clamp(2rem, 6vw, 5rem);
+}
+
+.pillar {
+  border-left: 4px solid var(--lantern);
+  padding-left: 1.5rem;
+}
+
+.pillar h3 {
+  margin-bottom: 0.4em;
+}
+
+.pillar p {
+  margin: 0;
+  max-width: 30rem;
+}
+
+/* ---------- 9. Home page: game shelf teaser ---------- */
+.shelf-teaser {
+  background: var(--pine);
+  color: #fff;
+}
+
+.shelf-teaser h2 {
+  color: #fff;
+}
+
+.shelf-teaser .teaser-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+}
+
+.shelf-teaser p {
+  max-width: 36rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* ---------- 10. Home page: events ---------- */
+.event-list {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.event {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  gap: 1rem 2.5rem;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.event-when strong {
+  display: block;
+  color: var(--pine);
+  font-size: 1.1rem;
+}
+
+.event-when span {
+  color: var(--muted);
+}
+
+.event-info h3 {
+  margin-bottom: 0.3em;
+}
+
+.event-info p {
+  margin: 0;
+  max-width: 38rem;
+}
+
+/* ---------- 11. Game shelf page ---------- */
+.page-title {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.page-title p {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.game-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.game-table caption {
+  text-align: left;
+  padding-bottom: 1rem;
+  color: var(--muted);
+}
+
+.game-table th,
+.game-table td {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.game-table thead th {
+  background: var(--pine);
+  color: #fff;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+.game-table tbody th {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--pine);
+}
+
+.game-table tbody tr:nth-child(even) {
+  background: var(--oat);
+}
+
+/* ---------- 12. Footer ---------- */
+.site-footer {
+  background: var(--pine-dark);
+  color: rgba(255, 255, 255, 0.85);
+  padding-block: 3rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1.2fr;
+  gap: 2rem;
+}
+
+.site-footer address {
+  font-style: normal;
+  margin-bottom: 0.8rem;
+}
+
+.hours {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 22rem;
+}
+
+.hours th,
+.hours td {
+  text-align: left;
+  padding: 0.25rem 0;
+  font-weight: 400;
+  font-size: 0.98rem;
+}
+
+.hours th {
+  padding-right: 1rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.site-footer h2 {
+  color: #fff;
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+}
+
+.site-footer p {
+  margin: 0 0 0.3rem;
+}
+
+.site-footer a {
+  color: #fff;
+}
+
+.copyright {
+  margin-top: 2.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.9rem;
+}
+
+/* ---------- 13. Phones and small screens ---------- */
+@media (max-width: 800px) {
+  .pillars,
+  .event,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  /* On phones the shade is more even so text stays readable */
+  .hero::before {
+    background: linear-gradient(180deg, rgba(22, 48, 42, 0.88) 0%, rgba(22, 48, 42, 0.7) 100%);
+  }
+
+  .game-table th,
+  .game-table td {
+    padding: 0.8rem 0.7rem;
+    font-size: 0.98rem;
+  }
+}
+
+/* Respect people who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .button { transition: none; }
+}
